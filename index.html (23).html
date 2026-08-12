@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPS Engineering | Renewable Energy Consultancy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#29ABE2',
+                        secondary: '#1A1A1A',
+                        light: '#F8FAFC',
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 30px -10px rgba(0, 0, 0, 0.1)',
+                        'premium-hover': '0 20px 40px -10px rgba(41, 171, 226, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for animations and specific glass effects */
+        .glass-nav {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .scrolled-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .scrolled-nav .nav-link {
+            color: #1A1A1A;
+        }
+        .scrolled-nav .logo-text {
+            color: #1A1A1A;
+        }
+        
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(41, 171, 226, 0.15);
+        }
+        
+        .service-card img {
+            transition: transform 0.5s ease;
+        }
+        .service-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Hide scrollbar for horizontal scroll areas but keep functionality */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-sans text-secondary bg-white antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 glass-nav py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="navigateAndScroll('home', 'home')">
+                    <span class="logo-text text-white font-bold text-xl sm:text-2xl tracking-tight transition-colors duration-300">
+                        <span class="text-primary">MPS</span> ENGINEERING
+                    </span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6 lg:space-x-8 items-center">
+                    <a href="#about" onclick="navigateAndScroll('home', 'about')" class="nav-link text-white hover:text-primary font-medium transition-colors duration-300">About</a>
+                    <a href="#services-page" onclick="navigateAndScroll('services', 'services-page')" class="nav-link text-white hover:text-primary font-medium transition-colors duration-300">Services</a>
+                    <a href="#projects-page" onclick="navigateAndScroll('projects', 'projects-page')" class="nav-link text-white hover:text-primary font-medium transition-colors duration-300">Projects</a>
+                    <a href="#team" onclick="navigateAndScroll('home', 'team')" class="nav-link text-white hover:text-primary font-medium transition-colors duration-300">Team</a>
+                    <a href="#contact" onclick="navigateAndScroll('home', 'contact')" class="bg-primary text-white px-5 lg:px-6 py-2 rounded-full font-medium hover:bg-opacity-90 transition-all shadow-premium hover:shadow-premium-hover">Contact Us</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-white hover:text-primary focus:outline-none transition-colors duration-300 p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu (Drops directly below navbar) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white absolute top-full left-0 w-full shadow-lg border-t border-gray-100">
+            <div class="px-4 pt-2 pb-4 space-y-2 sm:px-6">
+                <a href="#about" onclick="navigateAndScroll('home', 'about')" class="block px-3 py-2 text-secondary hover:text-primary font-medium rounded-md">About</a>
+                <a href="#services-page" onclick="navigateAndScroll('services', 'services-page')" class="block px-3 py-2 text-secondary hover:text-primary font-medium rounded-md">Services</a>
+                <a href="#projects-page" onclick="navigateAndScroll('projects', 'projects-page')" class="block px-3 py-2 text-secondary hover:text-primary font-medium rounded-md">Projects</a>
+                <a href="#team" onclick="navigateAndScroll('home', 'team')" class="block px-3 py-2 text-secondary hover:text-primary font-medium rounded-md">Team</a>
+                <a href="#contact" onclick="navigateAndScroll('home', 'contact')" class="block px-3 py-2 text-primary font-bold rounded-md">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main View Wrapper -->
+    <div id="view-home">
+
+    <!-- Homepage Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-start md:justify-center overflow-hidden">
+        <!-- Hero Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="34398.jpg" alt="Aerial Solar Farm Sunset" class="w-full h-full object-cover">
+            <!-- Increased overlay gradient opacity slightly for better text contrast -->
+            <div class="absolute inset-0 bg-secondary bg-opacity-70 bg-gradient-to-r from-secondary/80 to-transparent"></div> 
+        </div>
+
+        <!-- Shifted container slightly left on large screens to avoid center collision, structured max width -->
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-start md:items-center xl:items-start text-left md:text-center xl:text-left fade-up mt-16 md:mt-0 pt-20 lg:pt-0">
+            
+            <div class="max-w-3xl xl:max-w-4xl pt-10">
+                <!-- Typography gracefully scales down, adjusted line breaks for visual balance -->
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-[1.15] drop-shadow-lg">
+                    Engineering Renewable<br class="hidden sm:block"/> Energy <span class="text-primary drop-shadow-md">with Confidence</span>
+                </h1>
+                <p class="text-base sm:text-lg md:text-xl text-gray-200 mb-10 max-w-2xl md:mx-auto xl:mx-0 font-light drop-shadow-md leading-relaxed">
+                    Independent engineering, advisory and project delivery support across Solar PV, Battery Energy Storage Systems (BESS), and Microgrids.
+                </p>
+                <!-- Buttons stack to full-width on mobile, auto-width side-by-side on tablet/desktop -->
+                <div class="flex flex-col sm:flex-row justify-start md:justify-center xl:justify-start space-y-4 sm:space-y-0 sm:space-x-6 w-full sm:w-auto">
+                    <a href="#services-page" onclick="navigateAndScroll('services', 'services-page')" class="w-full sm:w-auto text-center bg-primary text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-opacity-90 transition-all shadow-premium hover:shadow-premium-hover transform hover:-translate-y-1">
+                        Explore Services
+                    </a>
+                    <a href="#contact" onclick="navigateAndScroll('home', 'contact')" class="w-full sm:w-auto text-center bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-secondary transition-all transform hover:-translate-y-1">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Homepage About Preview -->
+    <section id="about" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-10 md:gap-16">
+                <!-- Left: Image (Maintains proportion correctly on mobile) -->
+                <div class="w-full lg:w-1/2 fade-up relative rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="34390.jpg" alt="MPS Engineering Team Culture" class="w-full h-auto object-cover rounded-2xl">
+                    <div class="absolute -bottom-6 -right-6 w-16 h-16 md:w-24 md:h-24 bg-primary rounded-full opacity-20 blur-2xl"></div>
+                </div>
+                
+                <!-- Right: Content -->
+                <div class="w-full lg:w-1/2 fade-up delay-100">
+                    <h2 class="text-xs md:text-sm font-bold text-primary tracking-widest uppercase mb-2">About Us</h2>
+                    <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-4 md:mb-6 leading-snug">
+                        Delivering Independent Engineering Excellence
+                    </h3>
+                    <p class="text-gray-600 mb-4 md:mb-6 text-base md:text-lg leading-relaxed">
+                        MPS Engineering is a premier independent renewable energy engineering and advisory firm. Based in Australia, we specialize in mitigating project risks and maximizing asset value across the entire lifecycle of utility-scale Solar PV, Battery Energy Storage Systems (BESS), and complex Microgrid projects.
+                    </p>
+                    <p class="text-gray-600 mb-6 md:mb-8 text-base md:text-lg leading-relaxed">
+                        We pride ourselves on our technology-agnostic approach, rigorous technical capabilities, and deep commercial acumen. Our commitment is to quality, continuous innovation, and the absolute commercial success of our clients' clean energy investments.
+                    </p>
+                    <a href="#full-about" class="inline-flex items-center text-primary font-semibold hover:text-secondary transition-colors group">
+                        Discover Our Story 
+                        <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Homepage Statistics -->
+    <section class="py-16 md:py-20 bg-light border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center" id="counter-section">
+                <div class="fade-up">
+                    <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-1 md:mb-2"><span class="counter" data-target="10">0</span>GW+</div>
+                    <div class="text-xs sm:text-sm md:text-base font-medium text-gray-500 uppercase tracking-wide">Engineered</div>
+                </div>
+                <div class="fade-up delay-100">
+                    <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-1 md:mb-2"><span class="counter" data-target="5">0</span>GW+</div>
+                    <div class="text-xs sm:text-sm md:text-base font-medium text-gray-500 uppercase tracking-wide">Managed</div>
+                </div>
+                <div class="fade-up delay-200">
+                    <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-1 md:mb-2"><span class="counter" data-target="2">0</span>GW+</div>
+                    <div class="text-xs sm:text-sm md:text-base font-medium text-gray-500 uppercase tracking-wide">Consulted</div>
+                </div>
+                <div class="fade-up delay-300">
+                    <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-1 md:mb-2"><span class="counter" data-target="1530">0</span>+</div>
+                    <div class="text-xs sm:text-sm md:text-base font-medium text-gray-500 uppercase tracking-wide">Projects Completed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Homepage Services Preview (Only the 5 core highlights exactly as instructed) -->
+    <section id="services-preview" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16 fade-up">
+                <h2 class="text-xs md:text-sm font-bold text-primary tracking-widest uppercase mb-2">Our Capabilities</h2>
+                <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-4 md:mb-6">Engineering Excellence</h3>
+                <p class="text-gray-600 text-base md:text-lg px-2">Delivering end-to-end solutions for renewable energy projects across Australia.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-6 md:mb-8">
+                <!-- Service 1 -->
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-premium hover:shadow-premium-hover transition-all duration-300 fade-up border border-gray-100 flex flex-col h-full">
+                    <i class="fas fa-drafting-compass text-3xl md:text-4xl text-primary mb-4 md:mb-6"></i>
+                    <h4 class="text-lg md:text-xl font-bold text-secondary mb-3 md:mb-4">Design & Engineering</h4>
+                    <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-8 flex-grow">Smart, scalable engineering solutions for rooftop, ground-mount, floating, and carport systems designed to deliver performance from day one.</p>
+                    <a href="#services-page" onclick="navigateAndScroll('services', 'services-page')" class="text-primary font-semibold hover:text-secondary transition-colors group inline-flex items-center mt-auto w-fit">Read More <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i></a>
+                </div>
+                <!-- Service 2 -->
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-premium hover:shadow-premium-hover transition-all duration-300 fade-up delay-100 border border-gray-100 flex flex-col h-full">
+                    <i class="fas fa-battery-full text-3xl md:text-4xl text-primary mb-4 md:mb-6"></i>
+                    <h4 class="text-lg md:text-xl font-bold text-secondary mb-3 md:mb-4">Battery Energy Storage Systems (BESS)</h4>
+                    <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-8 flex-grow">Tailored storage solutions for energy shifting, peak shaving, and microgrid stability with AC/DC coupling strategies optimized to your grid.</p>
+                    <a href="#services-page" onclick="navigateAndScroll('services', 'services-page')" class="text-primary font-semibold hover:text-secondary transition-colors group inline-flex items-center mt-auto w-fit">Read More <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i></a>
+                </div>
+                <!-- Service 3 -->
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-premium hover:shadow-premium-hover transition-all duration-300 fade-up delay-200 border border-gray-100 flex flex-col h-full">
+                    <i class="fas fa-file-contract text-3xl md:text-4xl text-primary mb-4 md:mb-6"></i>
+                    <h4 class="text-lg md:text-xl font-bold text-secondary mb-3 md:mb-4">Technical Documentation & Tender Support</h4>
+                    <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-8 flex-grow">From BOQ to bid — complete engineering documentation, tender packages, and technical vetting for EPC selection and procurement.</p>
+                    <a href="#services-page" onclick="navigateAndScroll('services', 'services-page')" class="text-primary font-semibold hover:text-secondary transition-colors group inline-flex items-center mt-auto w-fit">Read More <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i></a>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:w-2/3 mx-auto">
+                <!-- Service 4 -->
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-premium hover:shadow-premium-hover transition-all duration-300 fade-up border border-gray-100 flex flex-col h-full">
+                    <i class="fas fa-chart-line text-3xl md:text-4xl text-primary mb-4 md:mb-6"></i>
+                    <h4 class="text-lg md:text-xl font-bold text-secondary mb-3 md:mb-4">O&M, Reporting & Predictive Maintenance</h4>
+                    <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-8 flex-grow">Daily to yearly performance tracking, root cause diagnostics, and maintenance planning driven by real-time data and big-data insights.</p>
+                    <a href="#services-page" onclick="navigateAndScroll('services', 'services-page')" class="text-primary font-semibold hover:text-secondary transition-colors group inline-flex items-center mt-auto w-fit">Read More <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i></a>
+                </div>
+                <!-- Service 5 -->
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-premium hover:shadow-premium-hover transition-all duration-300 fade-up delay-100 border border-gray-100 flex flex-col h-full">
+                    <i class="fas fa-boxes text-3xl md:text-4xl text-primary mb-4 md:mb-6"></i>
+                    <h4 class="text-lg md:text-xl font-bold text-secondary mb-3 md:mb-4">Balance of System (BOS) Supply</h4>
+                    <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-8 flex-grow">We supply all critical components needed beyond solar modules and inverters—from cables, panels, and structures to protection systems and SCADA equipment—to ensure quality, compatibility, and efficiency.</p>
+                    <a href="#services-page" onclick="navigateAndScroll('services', 'services-page')" class="text-primary font-semibold hover:text-secondary transition-colors group inline-flex items-center mt-auto w-fit">Read More <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full About Page Section -->
+    <section id="full-about" class="py-16 md:py-24 bg-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16 fade-up">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-4 md:mb-6">Who We Are</h2>
+                <div class="w-16 md:w-24 h-1 bg-primary mx-auto mb-6 md:mb-8 rounded-full"></div>
+                <p class="text-gray-600 text-base md:text-lg leading-relaxed">MPS Engineering is an independent engineering and advisory consultancy dedicated to advancing Australia's renewable energy infrastructure. We operate across a diverse geographical presence, delivering highly specialized engineering capabilities for the industries powering tomorrow.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
+                <!-- Mission -->
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-premium fade-up h-full">
+                    <i class="fas fa-bullseye text-3xl md:text-4xl text-primary mb-4 md:mb-6"></i>
+                    <h3 class="text-lg md:text-xl font-bold text-secondary mb-3 md:mb-4">Our Mission</h3>
+                    <p class="text-gray-600 text-sm md:text-base">To accelerate the transition to sustainable energy by providing world-class independent engineering, mitigating project risks, and maximizing asset value for our clients. We strive to be the definitive voice of technical truth in the renewable sector.</p>
+                </div>
+                <!-- Vision -->
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-premium fade-up delay-100 h-full">
+                    <i class="fas fa-eye text-3xl md:text-4xl text-primary mb-4 md:mb-6"></i>
+                    <h3 class="text-lg md:text-xl font-bold text-secondary mb-3 md:mb-4">Our Vision</h3>
+                    <p class="text-gray-600 text-sm md:text-base">To be the most trusted engineering and advisory partner in the global renewable energy sector, setting the ultimate standard for technical excellence, innovation, and sustainable infrastructure development.</p>
+                </div>
+                <!-- Values -->
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-premium fade-up delay-200 h-full">
+                    <i class="fas fa-heart text-3xl md:text-4xl text-primary mb-4 md:mb-6"></i>
+                    <h3 class="text-lg md:text-xl font-bold text-secondary mb-3 md:mb-4">Our Values</h3>
+                    <ul class="text-gray-600 space-y-2 text-sm md:text-base">
+                        <li><strong>Safety & Integrity:</strong> Uncompromising standards.</li>
+                        <li><strong>Technical Excellence:</strong> Precision in every calculation.</li>
+                        <li><strong>Innovation:</strong> Forward-thinking solutions.</li>
+                        <li><strong>Collaboration:</strong> True partnerships with our clients.</li>
+                        <li><strong>Sustainability:</strong> Engineering for future generations.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start mt-16 md:mt-24">
+                <div class="fade-up">
+                    <h3 class="text-2xl sm:text-3xl font-bold text-secondary mb-4 md:mb-6">How We Work</h3>
+                    <p class="text-gray-600 mb-4 md:mb-6 text-base leading-relaxed">We provide independent, technology-agnostic advice. Our methodology combines rigorous technical analysis with deep commercial acumen. Through a structured engineering process and specialist partnerships, we ensure every project is derisked from concept to operation.</p>
+                    <p class="text-gray-600 mb-6 text-base leading-relaxed">Our project delivery methodology focuses on transparency, technical leadership, and proactive problem-solving, acting as an extension of our clients' teams to safeguard their investments.</p>
+                </div>
+                <div class="fade-up delay-100 relative">
+                    <img src="34391.jpg" alt="Team collaborating on design" class="rounded-2xl shadow-xl w-full h-auto object-cover">
+                </div>
+            </div>
+
+            <!-- Who We Work With (Optimized grid for mobile screens) -->
+            <div class="mt-16 md:mt-24 fade-up">
+                <div class="text-center max-w-3xl mx-auto mb-8 md:mb-12">
+                    <h3 class="text-2xl sm:text-3xl font-bold text-secondary mb-3 md:mb-4">Who We Work With</h3>
+                    <p class="text-gray-600 text-sm md:text-base">We partner with industry leaders across the entire renewable energy spectrum.</p>
+                </div>
+                <!-- Switched to grid-cols-1 on smallest screens to prevent text squashing -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                    <div class="bg-white p-5 md:p-6 rounded-xl shadow-md text-center border border-gray-100 flex flex-col items-center justify-center">
+                        <i class="fas fa-project-diagram text-2xl md:text-3xl text-primary mb-2 md:mb-3"></i>
+                        <h4 class="font-bold text-secondary text-sm md:text-base">Project Developers</h4>
+                    </div>
+                    <div class="bg-white p-5 md:p-6 rounded-xl shadow-md text-center border border-gray-100 flex flex-col items-center justify-center">
+                        <i class="fas fa-industry text-2xl md:text-3xl text-primary mb-2 md:mb-3"></i>
+                        <h4 class="font-bold text-secondary text-sm md:text-base">Independent Power Producers</h4>
+                    </div>
+                    <div class="bg-white p-5 md:p-6 rounded-xl shadow-md text-center border border-gray-100 flex flex-col items-center justify-center">
+                        <i class="fas fa-microchip text-2xl md:text-3xl text-primary mb-2 md:mb-3"></i>
+                        <h4 class="font-bold text-secondary text-sm md:text-base">Technology Companies</h4>
+                    </div>
+                    <div class="bg-white p-5 md:p-6 rounded-xl shadow-md text-center border border-gray-100 flex flex-col items-center justify-center">
+                        <i class="fas fa-cogs text-2xl md:text-3xl text-primary mb-2 md:mb-3"></i>
+                        <h4 class="font-bold text-secondary text-sm md:text-base">Manufacturers</h4>
+                    </div>
+                    <div class="bg-white p-5 md:p-6 rounded-xl shadow-md text-center border border-gray-100 flex flex-col items-center justify-center">
+                        <i class="fas fa-university text-2xl md:text-3xl text-primary mb-2 md:mb-3"></i>
+                        <h4 class="font-bold text-secondary text-sm md:text-base">Government Agencies</h4>
+                    </div>
+                    <div class="bg-white p-5 md:p-6 rounded-xl shadow-md text-center border border-gray-100 flex flex-col items-center justify-center">
+                        <i class="fas fa-building text-2xl md:text-3xl text-primary mb-2 md:mb-3"></i>
+                        <h4 class="font-bold text-secondary text-sm md:text-base">Asset Owners</h4>
+                    </div>
+                    <div class="bg-white p-5 md:p-6 rounded-xl shadow-md text-center border border-gray-100 flex flex-col items-center justify-center">
+                        <i class="fas fa-hands-helping text-2xl md:text-3xl text-primary mb-2 md:mb-3"></i>
+                        <h4 class="font-bold text-secondary text-sm md:text-base">Indigenous Organisations</h4>
+                    </div>
+                    <div class="bg-white p-5 md:p-6 rounded-xl shadow-md text-center border border-gray-100 flex flex-col items-center justify-center">
+                        <i class="fas fa-chart-pie text-2xl md:text-3xl text-primary mb-2 md:mb-3"></i>
+                        <h4 class="font-bold text-secondary text-sm md:text-base">Investors</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Homepage Projects Preview -->
+    <section id="projects" class="py-16 md:py-24 bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16 fade-up">
+                <h2 class="text-xs md:text-sm font-bold text-primary tracking-widest uppercase mb-2">Projects</h2>
+                <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-4 md:mb-6">Featured Projects</h3>
+                <p class="text-gray-600 text-base md:text-lg px-2">A selection of our recent renewable energy engineering and advisory engagements.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- Project 1 -->
+                <div class="bg-white rounded-2xl shadow-premium hover:shadow-premium-hover transition-all duration-300 fade-up overflow-hidden border border-gray-100 flex flex-col h-full group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="34396.jpg" alt="Utility-Scale Solar Farm" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Solar PV</div>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col flex-grow">
+                        <h4 class="text-lg md:text-xl font-bold text-secondary mb-3 group-hover:text-primary transition-colors">Utility-Scale Solar Farm</h4>
+                        <p class="text-gray-600 text-sm md:text-base mb-6 flex-grow">Independent engineering and technical advisory for a large-scale solar PV project including feasibility, design review, procurement support, and commissioning oversight.</p>
+                        <a href="#projects-page" onclick="navigateAndScroll('projects', 'projects-page')" class="text-primary font-semibold hover:text-secondary transition-colors inline-flex items-center mt-auto w-fit">
+                            View Project <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="bg-white rounded-2xl shadow-premium hover:shadow-premium-hover transition-all duration-300 fade-up delay-100 overflow-hidden border border-gray-100 flex flex-col h-full group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="34399.jpg" alt="Battery Energy Storage System (BESS)" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">BESS</div>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col flex-grow">
+                        <h4 class="text-lg md:text-xl font-bold text-secondary mb-3 group-hover:text-primary transition-colors">Battery Energy Storage System (BESS)</h4>
+                        <p class="text-gray-600 text-sm md:text-base mb-6 flex-grow">Engineering advisory and system integration support for a grid-connected Battery Energy Storage System delivering enhanced reliability and peak demand management.</p>
+                        <a href="#projects-page" onclick="navigateAndScroll('projects', 'projects-page')" class="text-primary font-semibold hover:text-secondary transition-colors inline-flex items-center mt-auto w-fit">
+                            View Project <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="bg-white rounded-2xl shadow-premium hover:shadow-premium-hover transition-all duration-300 fade-up delay-200 overflow-hidden border border-gray-100 flex flex-col h-full group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="34412.jpg" alt="Remote Community Microgrid" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Microgrid</div>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col flex-grow">
+                        <h4 class="text-lg md:text-xl font-bold text-secondary mb-3 group-hover:text-primary transition-colors">Remote Community Microgrid</h4>
+                        <p class="text-gray-600 text-sm md:text-base mb-6 flex-grow">Hybrid solar and battery microgrid developed to provide reliable, sustainable energy solutions for remote communities.</p>
+                        <a href="#projects-page" onclick="navigateAndScroll('projects', 'projects-page')" class="text-primary font-semibold hover:text-secondary transition-colors inline-flex items-center mt-auto w-fit">
+                            View Project <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="bg-white rounded-2xl shadow-premium hover:shadow-premium-hover transition-all duration-300 fade-up delay-300 overflow-hidden border border-gray-100 flex flex-col h-full group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="34407.jpg" alt="Commercial Solar & Energy Optimisation" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Commercial</div>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col flex-grow">
+                        <h4 class="text-lg md:text-xl font-bold text-secondary mb-3 group-hover:text-primary transition-colors">Commercial Solar & Energy Optimisation</h4>
+                        <p class="text-gray-600 text-sm md:text-base mb-6 flex-grow">End-to-end engineering support for a commercial rooftop solar installation including system optimisation, technical documentation, and performance monitoring.</p>
+                        <a href="#projects-page" onclick="navigateAndScroll('projects', 'projects-page')" class="text-primary font-semibold hover:text-secondary transition-colors inline-flex items-center mt-auto w-fit">
+                            View Project <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team / Leadership Section -->
+    <section id="team" class="py-16 md:py-24 bg-light border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16 fade-up">
+                <h2 class="text-xs md:text-sm font-bold text-primary tracking-widest uppercase mb-2">LEADERSHIP</h2>
+                <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-4 md:mb-6">Meet Our Experts</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+                <!-- Sivakumaran (Siva) -->
+                <div class="bg-white rounded-2xl shadow-premium p-8 md:p-10 flex flex-col items-center text-center fade-up h-full">
+                    <div class="w-48 h-48 lg:w-[220px] lg:h-[220px] rounded-full overflow-hidden mb-6 flex-shrink-0 shadow-md relative">
+                        <img src="34445.jpg" alt="Sivakumaran (Siva)" class="absolute inset-0 w-full h-full object-cover object-top">
+                    </div>
+                    <div class="flex-grow flex flex-col items-center">
+                        <h4 class="text-xl md:text-2xl font-bold text-secondary mb-1">Sivakumaran (Siva)</h4>
+                        <p class="text-primary font-semibold text-sm md:text-base mb-6">Founder</p>
+                        <div class="text-gray-600 text-sm md:text-base leading-relaxed space-y-4 text-left w-full max-w-lg">
+                            <p>Siva is an engineering professional with 15 years of experience across multidisciplinary project environments, including infrastructure, civil, electrical engineering, renewable energy systems, and project management. He has led and supported projects spanning early-stage feasibility through detailed design, procurement, construction, and commissioning across commercial, industrial, and institutional sectors.</p>
+                            <p>With a strong technical foundation and practical delivery experience, Siva has been involved in complex engineering assignments across Australia, Europe, Asia, and the Middle East, delivering more than 3GW of projects, including a 200MW project in Denmark, one of the largest in his portfolio. His work has included feasibility assessments, engineering design review, tender preparation and evaluation, grid-connected energy systems, and construction-phase technical oversight, along with battery storage integration across approximately 100MW of BESS projects in Europe, the Middle East, and Asia. This breadth of exposure enables him to understand both the strategic objectives of asset owners and the technical realities of project execution.</p>
+                            <p>Siva's approach is structured and compliance-driven, with particular emphasis on technical clarity, risk identification, and disciplined project governance. He has worked closely with contractors, consultants, universities, utilities, and government stakeholders, supporting projects that require both engineering depth and coordinated delivery across multiple disciplines.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Michael Leverink -->
+                <div class="bg-white rounded-2xl shadow-premium p-8 md:p-10 flex flex-col items-center text-center fade-up delay-100 h-full">
+                    <div class="w-48 h-48 lg:w-[220px] lg:h-[220px] rounded-full overflow-hidden mb-6 flex-shrink-0 shadow-md relative">
+                        <img src="34443.jpg" alt="Michael Leverink" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 45%;">
+                    </div>
+                    <div class="flex-grow flex flex-col items-center">
+                        <h4 class="text-xl md:text-2xl font-bold text-secondary mb-1">Michael Leverink</h4>
+                        <p class="text-primary font-semibold text-sm md:text-base mb-6">Principal Consultant – Renewable Energy</p>
+                        <div class="text-gray-600 text-sm md:text-base leading-relaxed space-y-4 text-left w-full max-w-lg">
+                            <p>Michael brings over 25 years of renewable energy experience spanning business development, procurement, project delivery and technology commercialisation. He has held senior executive roles with global manufacturers including Jinko Solar and Conergy GMHB, and played a key role in major Australian solar projects such as the 24 MW Royalla Solar Farm. Michael has assisted developers in the design and specifications of projects consisting of 200MW+ solar and 200MWh battery storage.</p>
+                            <p>He specialises in supporting developers, investors, technology companies, Indigenous organisations and remote communities. Over the past six years he has led the design and delivery of more than 8 MW of solar and 5 MW of battery storage across 16 First Nations community microgrids in the Northern Territory and Queensland. Michael also advises on strategy, standards compliance, remote monitoring systems, economic benefits and funding pathways for community energy projects.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-24 bg-white relative overflow-hidden border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16 fade-up">
+                <h2 class="text-xs md:text-sm font-bold text-primary tracking-widest uppercase mb-2">Get In Touch</h2>
+                <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-4 md:mb-6">Partner With Us</h3>
+                <p class="text-gray-600 text-base md:text-lg">Contact our engineering team to discuss your next renewable energy project or advisory requirements.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-premium overflow-hidden border border-gray-100 fade-up delay-100 max-w-5xl mx-auto">
+                <div class="p-6 sm:p-8 md:p-12 flex flex-col justify-center">
+                    <h4 class="text-xl md:text-2xl font-bold text-secondary mb-4">Business Enquiries</h4>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-8">
+                        Whether you're seeking engineering advisory, solar PV design, battery energy storage systems (BESS), project development support, procurement assistance, or renewable energy consulting, we'd be pleased to hear from you.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
+                        <!-- Location -->
+                        <div class="flex items-start">
+                            <div class="bg-light p-3 rounded-full shadow-sm mr-4 text-primary flex-shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="mt-1">
+                                <p class="font-semibold text-secondary text-sm md:text-base">Australia-wide Engineering Services</p>
+                                <p class="text-gray-600 mt-1 text-sm">Locations:<br>&bull; Adelaide<br>&bull; Brisbane<br>&bull; Darwin<br>&bull; Sydney</p>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="flex items-start">
+                            <div class="bg-light p-3 rounded-full shadow-sm mr-4 text-primary flex-shrink-0">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="mt-1">
+                                <a href="mailto:business@mpssolar.com" class="font-semibold text-secondary text-sm md:text-base hover:text-primary transition-colors">business@mpssolar.com</a>
+                            </div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="flex items-start">
+                            <div class="bg-light p-3 rounded-full shadow-sm mr-4 text-primary flex-shrink-0">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="mt-1">
+                                <p class="font-semibold text-secondary text-sm md:text-base">+61 422 804 600</p>
+                            </div>
+                        </div>
+
+                        <!-- Business Hours -->
+                        <div class="flex items-start">
+                            <div class="bg-light p-3 rounded-full shadow-sm mr-4 text-primary flex-shrink-0">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="mt-1">
+                                <p class="font-semibold text-secondary text-sm md:text-base">Business Hours</p>
+                                <p class="text-gray-600 mt-1 text-sm">Monday – Friday<br>8:30 AM – 5:30 PM (AEST)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a href="mailto:business@mpssolar.com?subject=Business%20Enquiry" class="inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition-all transform hover:-translate-y-1 shadow-md text-sm md:text-base">
+                            Email Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    </div> <!-- End of view-home -->
+
+    <!-- Dedicated Services Page -->
+    <div id="view-services" class="hidden pt-20 md:pt-24 pb-16 md:pb-24 bg-white min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16 fade-up">
+                <h2 class="text-xs md:text-sm font-bold text-primary tracking-widest uppercase mb-2 mt-4 md:mt-0">Our Expertise</h2>
+                <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-4 md:mb-6">Comprehensive Engineering & Advisory Services</h3>
+                <p class="text-gray-600 text-sm md:text-lg px-2">Delivering end-to-end solutions for Solar PV, BESS, and Microgrid projects across Australia.</p>
+            </div>
+
+            <div class="space-y-16 md:space-y-24" id="services-page">
+                
+                <!-- Service 1: Strategic & Commercial Advisory -->
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 service-row fade-up">
+                    <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-xl">
+                        <img src="34390.jpg" alt="Strategic & Commercial Advisory" class="w-full h-64 sm:h-80 md:h-[400px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="flex items-center mb-3 md:mb-4 text-primary">
+                            <i class="fas fa-chart-line text-xl md:text-2xl mr-3 flex-shrink-0"></i>
+                            <h4 class="text-xl md:text-2xl font-bold text-secondary">Strategic & Commercial Advisory</h4>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-sm md:text-base leading-relaxed">Business strategy, market entry, commercialisation pathways, business model development, and stakeholder engagement for renewable energy projects and technology providers.</p>
+                        <button onclick="navigateAndScroll('home', 'contact')" class="text-primary font-semibold hover:text-secondary transition-colors group text-sm md:text-base">Contact Our Engineering Team <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i></button>
+                    </div>
+                </div>
+
+                <!-- Service 2: Technical Engineering & Design Advisory -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 service-row fade-up">
+                    <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-xl">
+                        <img src="34407.jpg" alt="Technical Engineering & Design Advisory" class="w-full h-64 sm:h-80 md:h-[400px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="flex items-center mb-3 md:mb-4 text-primary">
+                            <i class="fas fa-drafting-compass text-xl md:text-2xl mr-3 flex-shrink-0"></i>
+                            <h4 class="text-xl md:text-2xl font-bold text-secondary">Technical Engineering & Design Advisory</h4>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-sm md:text-base leading-relaxed">Independent electrical engineering support for solar PV, battery energy storage systems (BESS), hybrid systems and microgrids including system configuration, technical specifications, Australian Standards compliance, and design review.</p>
+                        <button onclick="navigateAndScroll('home', 'contact')" class="text-primary font-semibold hover:text-secondary transition-colors group text-sm md:text-base">Contact Our Engineering Team <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i></button>
+                    </div>
+                </div>
+
+                <!-- Service 3: Project Development Support -->
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 service-row fade-up">
+                    <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-xl">
+                        <img src="34396.jpg" alt="Project Development Support" class="w-full h-64 sm:h-80 md:h-[400px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="flex items-center mb-3 md:mb-4 text-primary">
+                            <i class="fas fa-hard-hat text-xl md:text-2xl mr-3 flex-shrink-0"></i>
+                            <h4 class="text-xl md:text-2xl font-bold text-secondary">Project Development Support</h4>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-sm md:text-base leading-relaxed">Early-stage project scoping, feasibility assessment, technology selection, risk identification, and development pathway planning.</p>
+                        <button onclick="navigateAndScroll('home', 'contact')" class="text-primary font-semibold hover:text-secondary transition-colors group text-sm md:text-base">Contact Our Engineering Team <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i></button>
+                    </div>
+                </div>
+
+                <!-- Service 4: Procurement & Supply Chain Management -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 service-row fade-up">
+                    <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-xl">
+                        <img src="34399.jpg" alt="Procurement & Supply Chain Management" class="w-full h-64 sm:h-80 md:h-[400px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="flex items-center mb-3 md:mb-4 text-primary">
+                            <i class="fas fa-dolly text-xl md:text-2xl mr-3 flex-shrink-0"></i>
+                            <h4 class="text-xl md:text-2xl font-bold text-secondary">Procurement & Supply Chain Management</h4>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-sm md:text-base leading-relaxed">Procurement strategy, tender management, equipment specification, supplier evaluation, contract negotiation support, and supply chain risk assessment using established manufacturer relationships across Asia, Europe, and the United States.</p>
+                        <button onclick="navigateAndScroll('home', 'contact')" class="text-primary font-semibold hover:text-secondary transition-colors group text-sm md:text-base">Contact Our Engineering Team <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i></button>
+                    </div>
+                </div>
+
+                <!-- Service 5: Commercial & Financial Advisory -->
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 service-row fade-up">
+                    <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-xl">
+                        <img src="34410.jpg" alt="Commercial & Financial Advisory" class="w-full h-64 sm:h-80 md:h-[400px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="flex items-center mb-3 md:mb-4 text-primary">
+                            <i class="fas fa-file-invoice-dollar text-xl md:text-2xl mr-3 flex-shrink-0"></i>
+                            <h4 class="text-xl md:text-2xl font-bold text-secondary">Commercial & Financial Advisory</h4>
+                        </div>
+                        <p class="text-gray-600 mb-3 md:mb-4 text-sm md:text-base leading-relaxed">Project financial modelling, PPA structuring, wholesale and merchant revenue modelling, hybrid energy modelling, and commercial due diligence.</p>
+                        <p class="text-xs md:text-sm font-medium text-gray-500 mb-6 italic border-l-4 border-primary pl-3">Delivered with specialist energy economist partners.</p>
+                        <button onclick="navigateAndScroll('home', 'contact')" class="text-primary font-semibold hover:text-secondary transition-colors group text-sm md:text-base">Contact Our Engineering Team <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i></button>
+                    </div>
+                </div>
+
+                 <!-- Service 6: Grid Connection & Network Advisory -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 service-row fade-up">
+                    <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-xl">
+                        <img src="34406.jpg" alt="Grid Connection & Network Advisory" class="w-full h-64 sm:h-80 md:h-[400px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="flex items-center mb-3 md:mb-4 text-primary">
+                            <i class="fas fa-bolt text-xl md:text-2xl mr-3 flex-shrink-0"></i>
+                            <h4 class="text-xl md:text-2xl font-bold text-secondary">Grid Connection & Network Advisory</h4>
+                        </div>
+                        <p class="text-gray-600 mb-3 md:mb-4 text-sm md:text-base leading-relaxed">Grid connection strategy, application support, network studies coordination, and interface management with DNSPs and TNSPs.</p>
+                        <p class="text-xs md:text-sm font-medium text-gray-500 mb-6 italic border-l-4 border-primary pl-3">Delivered with specialist network engineers.</p>
+                        <button onclick="navigateAndScroll('home', 'contact')" class="text-primary font-semibold hover:text-secondary transition-colors group text-sm md:text-base">Contact Our Engineering Team <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i></button>
+                    </div>
+                </div>
+
+                 <!-- Service 7: Owner's Engineer & Independent Oversight -->
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 service-row fade-up">
+                    <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-xl">
+                        <img src="34391.jpg" alt="Owner's Engineer & Independent Oversight" class="w-full h-64 sm:h-80 md:h-[400px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="flex items-center mb-3 md:mb-4 text-primary">
+                            <i class="fas fa-user-tie text-xl md:text-2xl mr-3 flex-shrink-0"></i>
+                            <h4 class="text-xl md:text-2xl font-bold text-secondary">Owner's Engineer & Independent Oversight</h4>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-sm md:text-base leading-relaxed">Independent technical representation for project owners including design review, EPC tender evaluation, construction monitoring, quality assurance, and commissioning oversight.</p>
+                        <button onclick="navigateAndScroll('home', 'contact')" class="text-primary font-semibold hover:text-secondary transition-colors group text-sm md:text-base">Contact Our Engineering Team <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i></button>
+                    </div>
+                </div>
+
+                <!-- Service 8: Remote, Off-Grid & First Nations Community Energy Solutions -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 service-row fade-up">
+                    <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-xl">
+                        <img src="34398.jpg" alt="Remote, Off-Grid & First Nations Community Energy Solutions" class="w-full h-64 sm:h-80 md:h-[400px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="flex items-center mb-3 md:mb-4 text-primary">
+                            <i class="fas fa-solar-panel text-xl md:text-2xl mr-3 flex-shrink-0"></i>
+                            <h4 class="text-xl md:text-2xl font-bold text-secondary">Remote, Off-Grid & First Nations Solutions</h4>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-sm md:text-base leading-relaxed">Specialist advisory for remote and Indigenous communities including microgrid and hybrid system design, cultural engagement support, funding application assistance, and reliable solar plus storage solutions.</p>
+                        <button onclick="navigateAndScroll('home', 'contact')" class="text-primary font-semibold hover:text-secondary transition-colors group text-sm md:text-base">Contact Our Engineering Team <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i></button>
+                    </div>
+                </div>
+
+                <!-- Service 9: Compliance, Standards & Certification Support -->
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 service-row fade-up">
+                    <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-xl">
+                        <img src="34395.jpg" alt="Compliance, Standards & Certification Support" class="w-full h-64 sm:h-80 md:h-[400px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="flex items-center mb-3 md:mb-4 text-primary">
+                            <i class="fas fa-clipboard-check text-xl md:text-2xl mr-3 flex-shrink-0"></i>
+                            <h4 class="text-xl md:text-2xl font-bold text-secondary">Compliance, Standards & Certification</h4>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-sm md:text-base leading-relaxed">Guidance on Australian Standards, product certification requirements, warranty compliance, and regulatory pathways for PV and battery systems.</p>
+                        <button onclick="navigateAndScroll('home', 'contact')" class="text-primary font-semibold hover:text-secondary transition-colors group text-sm md:text-base">Contact Our Engineering Team <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i></button>
+                    </div>
+                </div>
+
+                <!-- Service 10: Technology Integration & Remote Monitoring Strategy -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 service-row fade-up">
+                    <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-xl">
+                        <img src="34397.jpg" alt="Technology Integration & Remote Monitoring Strategy" class="w-full h-64 sm:h-80 md:h-[400px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="flex items-center mb-3 md:mb-4 text-primary">
+                            <i class="fas fa-network-wired text-xl md:text-2xl mr-3 flex-shrink-0"></i>
+                            <h4 class="text-xl md:text-2xl font-bold text-secondary">Technology Integration & Remote Monitoring</h4>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-sm md:text-base leading-relaxed">Advisory on integrating renewable generation with energy management systems and telecommunications for remote monitoring, reduced operational costs, predictive maintenance, and improved system reliability.</p>
+                        <button onclick="navigateAndScroll('home', 'contact')" class="text-primary font-semibold hover:text-secondary transition-colors group text-sm md:text-base">Contact Our Engineering Team <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Dedicated Projects Page -->
+    <div id="view-projects" class="hidden bg-white min-h-screen">
+        
+        <!-- Projects Hero Section -->
+        <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Renewable Energy Projects" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-secondary bg-opacity-80 bg-gradient-to-b from-secondary/90 to-secondary/70"></div>
+            </div>
+            <div class="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-up">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-lg">Projects</h1>
+                <p class="text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed drop-shadow-md">
+                    Explore a selection of renewable energy engineering projects delivered across commercial, industrial, institutional and remote energy sectors. Each project demonstrates MPS Engineering's commitment to technical excellence, innovative design, and successful project delivery.
+                </p>
+            </div>
+        </section>
+
+        <!-- Projects List Section -->
+        <section id="projects-page" class="py-16 md:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Project 1: Image Left, Content Right -->
+                <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 fade-up">
+                    <div class="w-full lg:w-1/2 rounded-2xl overflow-hidden shadow-premium">
+                        <!-- High quality professional utility-scale solar carport image -->
+                        <img src="34495.jpg" alt="Commercial Solar Carport System" class="w-full h-72 sm:h-96 lg:h-[550px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="w-full lg:w-1/2">
+                        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-secondary mb-6 leading-tight">4MW Commercial Solar Carport System – University Campus, Bahrain</h3>
+                        
+                        <div class="bg-light border border-gray-100 rounded-xl p-5 mb-8 grid grid-cols-1 sm:grid-cols-2 gap-5 shadow-sm">
+                            <div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">Location</span>
+                                <span class="font-semibold text-secondary text-sm">Kingdom of Bahrain</span>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">System Capacity</span>
+                                <span class="font-semibold text-secondary text-sm">4MW Solar PV Carport Array</span>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">Commercial Model</span>
+                                <span class="font-semibold text-secondary text-sm">Power Purchase Agreement (PPA) / Cross-Border Investment</span>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">MPS Role</span>
+                                <span class="font-semibold text-secondary text-sm">Complete Design Engineering, Project Management & Construction Supervision</span>
+                            </div>
+                        </div>
+
+                        <h4 class="text-lg font-bold text-secondary mb-3">Executive Summary</h4>
+                        <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-8">MPS led the complete design engineering and end-to-end project management for a major 4MW solar carport installation across a premier university campus in Bahrain. Developed under a Power Purchase Agreement (PPA) framework backed by international investors in Dubai, the project delivers clean, renewable power to the university while providing essential shaded parking infrastructure in the Middle Eastern climate.</p>
+
+                        <h4 class="text-lg font-bold text-secondary mb-4">Key Technical & Project Deliverables</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                                <p class="text-gray-600 text-sm md:text-base leading-relaxed"><strong class="text-secondary font-semibold">End-to-End Design Engineering:</strong> Delivered complete structural and electrical engineering designs for a 4MW solar PV carport, engineered specifically for high ambient thermal conditions and regional wind-load requirements.</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                                <p class="text-gray-600 text-sm md:text-base leading-relaxed"><strong class="text-secondary font-semibold">On-Site Construction Supervision:</strong> Stationed dedicated MPS supervising engineers on site to provide technical leadership, quality control, and safety oversight alongside local Bahraini installation contractors.</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                                <p class="text-gray-600 text-sm md:text-base leading-relaxed"><strong class="text-secondary font-semibold">Cross-Border Stakeholder Integration:</strong> Successfully coordinated multi-party execution across Dubai-based PPA investors, local Bahraini construction teams, and university executive management.</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                                <p class="text-gray-600 text-sm md:text-base leading-relaxed"><strong class="text-secondary font-semibold">Yield Optimization & PPA Compliance:</strong> Performed detailed solar performance modelling, string configuration, and design validation to ensure maximum energy yield under commercial PPA parameters.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project 2: Image Right, Content Left -->
+                <div class="flex flex-col lg:flex-row-reverse items-center gap-10 lg:gap-16 fade-up mt-20 md:mt-32 pt-12 md:pt-16 border-t border-gray-100">
+                    <div class="w-full lg:w-1/2 rounded-2xl overflow-hidden shadow-premium">
+                        <!-- High quality professional industrial rooftop solar image -->
+                        <img src="34493.jpg" alt="Industrial Rooftop Solar Installation" class="w-full h-72 sm:h-96 lg:h-[550px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="w-full lg:w-1/2">
+                        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-secondary mb-6 leading-tight">6MW Industrial Rooftop Solar Installation – Textile & Spinning Mill Campus</h3>
+                        
+                        <div class="bg-light border border-gray-100 rounded-xl p-5 mb-8 grid grid-cols-1 sm:grid-cols-2 gap-5 shadow-sm">
+                            <div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">Location</span>
+                                <span class="font-semibold text-secondary text-sm">India</span>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">System Capacity</span>
+                                <span class="font-semibold text-secondary text-sm">6MW Rooftop Solar PV Array (Distributed across multiple campus roofs)</span>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">Commercial Model</span>
+                                <span class="font-semibold text-secondary text-sm">Industrial Self-Consumption & Grid Offset</span>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">MPS Role</span>
+                                <span class="font-semibold text-secondary text-sm">Complete Design Engineering, Grid Synchronization, Smart Load Optimization & Full On-Site Supervision</span>
+                            </div>
+                        </div>
+
+                        <h4 class="text-lg font-bold text-secondary mb-3">Executive Summary</h4>
+                        <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-8">MPS executed the complete design engineering and multi-stage site supervision for a 6MW industrial rooftop solar installation spread across multiple building roofs within a large spinning mill campus in India. Designed to offset the continuous, high energy consumption of textile manufacturing machinery, the project required specialized engineering to unify generation across complex roof geometry, synchronize safely with the local utility grid, and optimize heavy industrial load curves.</p>
+
+                        <h4 class="text-lg font-bold text-secondary mb-4">Key Technical & Project Deliverables</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                                <p class="text-gray-600 text-sm md:text-base leading-relaxed"><strong class="text-secondary font-semibold">Multi-Roof Layout & Structural Auditing:</strong> Engineered custom solar PV array layouts across varied factory roofs, accounting for differing roof pitches, structural load limits, azimuth angles, and shading profiles.</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                                <p class="text-gray-600 text-sm md:text-base leading-relaxed"><strong class="text-secondary font-semibold">Grid Synchronization & Protection:</strong> Designed dynamic grid-interface and utility protection schemes to ensure seamless, safe power synchronization under fluctuating factory load conditions.</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                                <p class="text-gray-600 text-sm md:text-base leading-relaxed"><strong class="text-secondary font-semibold">Smart Load Optimization:</strong> Implemented intelligent load-management controls to align real-time solar generation directly with heavy spinning mill machinery, significantly reducing peak demand charges and maximizing self-consumption.</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                                <p class="text-gray-600 text-sm md:text-base leading-relaxed"><strong class="text-secondary font-semibold">Full-Lifecycle Inspection & Commissioning:</strong> Maintained dedicated MPS engineering presence on site through every construction milestone—from structural mounting and electrical wiring to final testing and commissioning.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project 3: Image Left, Content Right -->
+                <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 fade-up mt-20 md:mt-32 pt-12 md:pt-16 border-t border-gray-100">
+                    <div class="w-full lg:w-1/2 rounded-2xl overflow-hidden shadow-premium">
+                        <!-- High quality professional off-grid solar microgrid BESS image -->
+                        <img src="34491.jpg" alt="Off-Grid Containerized BESS & Solar Microgrid" class="w-full h-72 sm:h-96 lg:h-[550px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="w-full lg:w-1/2">
+                        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-secondary mb-6 leading-tight">600kWh Off-Grid Containerized BESS & Solar Microgrid – Island Electrification</h3>
+                        
+                        <div class="bg-light border border-gray-100 rounded-xl p-5 mb-8 grid grid-cols-1 sm:grid-cols-2 gap-5 shadow-sm">
+                            <div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">Location</span>
+                                <span class="font-semibold text-secondary text-sm">Island Community, Myanmar</span>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">System Capacity</span>
+                                <span class="font-semibold text-secondary text-sm">Ground-Mounted Solar PV Array + 600kWh Containerized Battery Energy Storage System (BESS)</span>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">Beneficiaries</span>
+                                <span class="font-semibold text-secondary text-sm">100 Village Households & Community Infrastructure</span>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">MPS Role</span>
+                                <span class="font-semibold text-secondary text-sm">End-to-End Technical Advisory, Off-Grid Microgrid Design, BESS Integration & Remote Supervision</span>
+                            </div>
+                        </div>
+
+                        <h4 class="text-lg font-bold text-secondary mb-3">Executive Summary</h4>
+                        <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-8">MPS provided total technical advisory and microgrid engineering for a turnkey off-grid solar-plus-storage solution powering an isolated island community of 100 households in Myanmar. Replacing unreliable, high-cost diesel generation, the community now operates on continuous, 24/7 clean energy backed by a 600kWh containerized Lithium-ion Battery Energy Storage System (BESS).</p>
+
+                        <h4 class="text-lg font-bold text-secondary mb-4">Key Technical & Project Deliverables</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                                <p class="text-gray-600 text-sm md:text-base leading-relaxed"><strong class="text-secondary font-semibold">Off-Grid Architecture & BESS Sizing:</strong> Engineered a 600kWh containerized BESS tailored for humid maritime environments, providing multi-day energy autonomy and maintaining stable microgrid voltage and frequency.</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                                <p class="text-gray-600 text-sm md:text-base leading-relaxed"><strong class="text-secondary font-semibold">Low-Voltage Distribution Grid:</strong> Designed a centralized low-voltage distribution network providing reliable power connections to 100 homes, street lighting, and essential village facilities.</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                                <p class="text-gray-600 text-sm md:text-base leading-relaxed"><strong class="text-secondary font-semibold">Pre-Integrated Modular Containerization:</strong> Configured battery racks, hybrid power conversion inverters, HVAC, and fire suppression systems inside a ruggedized ISO shipping container for safe maritime transport and rapid site installation.</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3 flex-shrink-0"></i>
+                                <p class="text-gray-600 text-sm md:text-base leading-relaxed"><strong class="text-secondary font-semibold">Capacity Building & Operations Strategy:</strong> Implemented smart metering and remote telemetry systems while training local community technicians for ongoing system monitoring and basic operational management.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white pt-16 md:pt-20 pb-8 md:pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 mb-12 md:mb-16">
+                <!-- Brand -->
+                <div class="col-span-1 sm:col-span-2 lg:col-span-1">
+                    <span class="text-white font-bold text-xl md:text-2xl tracking-tight mb-4 md:mb-6 block cursor-pointer" onclick="navigateAndScroll('home', 'home')">
+                        <span class="text-primary">MPS</span> ENGINEERING
+                    </span>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-6">
+                        World-class independent engineering, advisory and project delivery support for the renewable energy sector.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-base md:text-lg font-bold mb-4 md:mb-6">Company</h4>
+                    <ul class="space-y-2 md:space-y-3">
+                        <li><a href="#about" onclick="navigateAndScroll('home', 'about')" class="text-gray-400 hover:text-primary transition-colors text-xs md:text-sm">About Us</a></li>
+                        <li><a href="#team" onclick="navigateAndScroll('home', 'team')" class="text-gray-400 hover:text-primary transition-colors text-xs md:text-sm">Our Team</a></li>
+                        <li><a href="#projects-page" onclick="navigateAndScroll('projects', 'projects-page')" class="text-gray-400 hover:text-primary transition-colors text-xs md:text-sm">Projects</a></li>
+                        <li><a href="#contact" onclick="navigateAndScroll('home', 'contact')" class="text-gray-400 hover:text-primary transition-colors text-xs md:text-sm">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="text-base md:text-lg font-bold mb-4 md:mb-6">Services</h4>
+                    <ul class="space-y-2 md:space-y-3">
+                        <li><a href="#services-page" onclick="navigateAndScroll('services', 'services-page')" class="text-gray-400 hover:text-primary transition-colors text-xs md:text-sm">Strategic Advisory</a></li>
+                        <li><a href="#services-page" onclick="navigateAndScroll('services', 'services-page')" class="text-gray-400 hover:text-primary transition-colors text-xs md:text-sm">Technical Engineering</a></li>
+                        <li><a href="#services-page" onclick="navigateAndScroll('services', 'services-page')" class="text-gray-400 hover:text-primary transition-colors text-xs md:text-sm">Project Development</a></li>
+                        <li><a href="#services-page" onclick="navigateAndScroll('services', 'services-page')" class="text-gray-400 hover:text-primary transition-colors text-xs md:text-sm">Grid Connection</a></li>
+                        <li><a href="#services-page" onclick="navigateAndScroll('services', 'services-page')" class="text-gray-400 hover:text-primary transition-colors text-xs md:text-sm">View All Services</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-base md:text-lg font-bold mb-4 md:mb-6">Locations</h4>
+                    <ul class="space-y-3 md:space-y-4">
+                        <li class="flex items-start text-xs md:text-sm">
+                            <i class="fas fa-map-marker-alt text-primary mt-1 mr-3 w-4 text-center flex-shrink-0"></i>
+                            <span class="text-gray-400">Australia-wide Services<br>Adelaide • Brisbane • Darwin • Sydney</span>
+                        </li>
+                        <li class="flex items-center text-xs md:text-sm">
+                            <i class="fas fa-phone-alt text-primary mr-3 w-4 text-center flex-shrink-0"></i>
+                            <span class="text-gray-400">0422 804 600</span>
+                        </li>
+                        <li class="flex items-center text-xs md:text-sm">
+                            <i class="fas fa-envelope text-primary mr-3 w-4 text-center flex-shrink-0"></i>
+                            <span class="text-gray-400 break-all">business@mpssolar.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <p class="text-gray-500 text-xs md:text-sm mb-4 md:mb-0">
+                    &copy; <span id="year"></span> MPS Engineering. All rights reserved.
+                </p>
+                <div class="flex space-x-4 md:space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-white text-xs md:text-sm transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-white text-xs md:text-sm transition-colors">Terms of Service</a>
+                </div>
+            </div>
+            
+            <!-- NDA Disclaimer -->
+            <div class="mt-6 md:mt-4 text-center md:text-left">
+                <p class="text-gray-500 text-[10px] md:text-xs">
+                    Visuals presented are representative illustrations of site works, utilized in accordance with NDA privacy guidelines.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // View Navigation Logic
+        function navigateAndScroll(pageId, sectionId) {
+            const homeView = document.getElementById('view-home');
+            const servicesView = document.getElementById('view-services');
+            const projectsView = document.getElementById('view-projects');
+            
+            // Hide all main views initially
+            homeView.classList.add('hidden');
+            servicesView.classList.add('hidden');
+            if (projectsView) projectsView.classList.add('hidden');
+            
+            if (pageId === 'services') {
+                servicesView.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Trigger intersection observer for newly visible elements
+                setTimeout(() => {
+                    document.querySelectorAll('#view-services .fade-up').forEach((el) => {
+                        observer.observe(el);
+                    });
+                }, 100);
+            } else if (pageId === 'projects') {
+                if (projectsView) projectsView.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Trigger intersection observer for newly visible elements
+                setTimeout(() => {
+                    document.querySelectorAll('#view-projects .fade-up').forEach((el) => {
+                        observer.observe(el);
+                    });
+                }, 100);
+            } else {
+                homeView.classList.remove('hidden');
+                
+                if (sectionId) {
+                    setTimeout(() => {
+                        const element = document.getElementById(sectionId);
+                        if (element) {
+                            element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }, 50);
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+            
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const logoText = navbar.querySelector('.logo-text');
+        const navLinks = navbar.querySelectorAll('.nav-link');
+        const mobileBtnIcon = btn.querySelector('i');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled-nav');
+                navbar.classList.remove('glass-nav');
+                // Adjust colors for light background
+                logoText.classList.remove('text-white');
+                logoText.classList.add('text-secondary');
+                navLinks.forEach(link => {
+                    link.classList.remove('text-white');
+                    link.classList.add('text-secondary');
+                });
+                mobileBtnIcon.classList.remove('text-white');
+                mobileBtnIcon.classList.add('text-secondary');
+            } else {
+                navbar.classList.remove('scrolled-nav');
+                navbar.classList.add('glass-nav');
+                // Revert to white for dark hero background
+                logoText.classList.remove('text-secondary');
+                logoText.classList.add('text-white');
+                navLinks.forEach(link => {
+                    link.classList.remove('text-secondary');
+                    link.classList.add('text-white');
+                });
+                mobileBtnIcon.classList.remove('text-secondary');
+                mobileBtnIcon.classList.add('text-white');
+            }
+        });
+
+        // Intersection Observer for scroll animations (fade-up)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Trigger counters if it's the stats section
+                    if (entry.target.id === 'counter-section' || entry.target.closest('#counter-section')) {
+                        runCounters();
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Number Counter Animation
+        let countersRun = false;
+        function runCounters() {
+            if (countersRun) return;
+            countersRun = true;
+            
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200; // The lower the slower
+
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+
+                    // Lower inc to slow and higher to speed up
+                    const inc = target / speed;
+
+                    // Check if target is reached
+                    if (count < target) {
+                        // Add inc to count and output in counter
+                        counter.innerText = Math.ceil(count + inc);
+                        // Call function every ms
+                        setTimeout(updateCount, 15);
+                    } else {
+                        counter.innerText = target.toLocaleString(); // Add commas for larger numbers
+                    }
+                };
+                updateCount();
+            });
+        }
+    </script>
+</body>
+</html>
